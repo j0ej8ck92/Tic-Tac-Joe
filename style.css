@@ -2,3 +2,32 @@
     margin: 0;
     padding: 0;
 }
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+
+}
+
+.tic-tac-toe-grid {
+
+    width: 500px;
+    height: 500px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0,1fr));
+    background-color: aqua;
+    gap: 5px;
+
+}
+
+.cell {
+    background-color: blue;
+    color: white;
+    font-size: 2em;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

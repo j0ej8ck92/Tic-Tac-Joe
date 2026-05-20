@@ -1,9 +1,15 @@
+const boardState = ["", "", "", "", "", "", "", "", ""]
 const ticTacToeGrid = [];
+const displayGrid = document.querySelector(".tic-tac-toe-grid");
+console.log(displayGrid);
 
-for (let i = 1; i<= 9; i++) { //creates grid squares
+for (let i = 0; i < 9; i++) { //creates grid squares
 
-    let gridCellValue = i;
-    ticTacToeGrid.push(gridCellValue);
+    let cell = document.createElement("div");
+    cell.classList.add("cell");
+    displayGrid.appendChild(cell);
+    cell.dataset.id = i;
+    ticTacToeGrid.push(cell);
 
 }
 
@@ -19,9 +25,9 @@ const player = {
     wins: 0,
     losses: 0,
 
-    choose() {
+    choose(character) {
 
-    let input = prompt("Choose your square bud");
+    let input = character;
     return input;
     
     }
@@ -33,13 +39,12 @@ const playerOne = Object.create(player);
 const playerTwo = Object.create(player);
 
 
+
 function checkWinner(playerOneInput, playerTwoInput){
 
 
 function createWin(a, b, c){
-
     return {a, b, c};
-
 }
 
 const winOne = createWin(one, two, three);
@@ -64,28 +69,53 @@ const winCombos = [
 
 console.log(winCombos);
 
-winCombos.forEach(combo => {
+let playerOneTurn = true;
+let playerTwoTurn = false;
+
+function updateBoard(gridCell, index){
     
-    Object.values(combo).forEach(value =>{
-        
-        console.log(value);
-    })
+
+    if (playerOneTurn) {
+        boardState[index] = String(index);
+        gridCell.textContent = playerOne.choose("X")
+        playerOneTurn = false;
+        playerTwoTurn = true;
+        return;
+    }    
+
+    if (playerTwoTurn){
+        boardState[index] = String(index);
+        gridCell.textContent = playerTwo.choose("O");
+        playerOneTurn = true;
+        PlayerTwoTurn = false;
+    return;
+    }
+    
+
+}
+
+function handleCellClick(event){
+
+   let clickedCell = event.target;
+   let clickedIndex = event.target.dataset.id;
+   console.log(clickedCell);
+   console.log(clickedIndex);
+   updateBoard(clickedCell, clickedIndex);
+   console.log(boardState);
+   
+}
+
+ticTacToeGrid.forEach(gridcell => {
+    gridcell.addEventListener("click", handleCellClick);
 })
 
-    let inputOfPlayerOne = playerOneInput;
-    let inputOfPlayerTwo = playerTwoInput;
-   
-
+ 
 } // end of Check Winner Function
 
 
 
 
-
-
-
 checkWinner();
-
 
 
 
