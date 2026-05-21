@@ -1,4 +1,4 @@
-const boardState = ["", "", "", "", "", "", "", "", ""]
+const boardState = ["", "", "", "", "", "", "", "", ""];
 const ticTacToeGrid = [];
 const displayGrid = document.querySelector(".tic-tac-toe-grid");
 console.log(displayGrid);
@@ -40,39 +40,63 @@ const playerTwo = Object.create(player);
 
 
 
-function checkWinner(playerOneInput, playerTwoInput){
+function checkWinner() {
 
+    
 
-function createWin(a, b, c){
+function createWin(a, b, c) {
     return {a, b, c};
 }
 
-const winOne = createWin(one, two, three);
-const winTwo = createWin(four, five, six);
-const winThree = createWin(seven, eight, nine);
-const winFour = createWin(one, four, seven);
-const winFive = createWin(two, five, eight);
-const winSix = createWin(three, six, nine);
-const winSeven = createWin(one, five, nine);
-const winEight = createWin(three, five, seven);
+    const winOne = createWin(one, two, three);
+    const winTwo = createWin(four, five, six);
+    const winThree = createWin(seven, eight, nine);
+    const winFour = createWin(one, four, seven);
+    const winFive = createWin(two, five, eight);
+    const winSix = createWin(three, six, nine);
+    const winSeven = createWin(one, five, nine);
+    const winEight = createWin(three, five, seven);
 
-const winCombos = [
-    winOne,
-    winTwo,
-    winThree,
-    winFour,
-    winFive,
-    winSix,
-    winSeven,
-    winEight,
-];
+    const winCombos = [
+        winOne,
+        winTwo,
+        winThree,
+        winFour,
+        winFive,
+        winSix,
+        winSeven,
+        winEight,
+    ];
 
-console.log(winCombos);
+    console.log(winCombos);
+    let roundWon = false;
 
-let playerOneTurn = true;
-let playerTwoTurn = false;
 
-function updateBoard(gridCell, index){
+    /*for (const combo of winCombos){
+      const combos = Object.values(combo);
+       console.log(combos);
+
+       const [a, b, c] = combos;
+
+       
+
+
+    }*/
+
+    for (let i = 0; i < winCombos.length; i++){
+
+        //console.log(winCombos[i]);
+       const combos = Object.values(winCombos[i]);
+       console.log(combos);
+
+    } // end of for loop */
+
+
+
+    let playerOneTurn = true;
+    let playerTwoTurn = false;
+
+function updateBoard(gridCell, index) {
     
 
     if (playerOneTurn) {
@@ -88,25 +112,45 @@ function updateBoard(gridCell, index){
         gridCell.textContent = playerTwo.choose("O");
         playerOneTurn = true;
         PlayerTwoTurn = false;
-    return;
+        return;
     }
     
 
 }
 
-function handleCellClick(event){
+function handleCellClick(event) {
 
    let clickedCell = event.target;
    let clickedIndex = event.target.dataset.id;
    console.log(clickedCell);
    console.log(clickedIndex);
+
    updateBoard(clickedCell, clickedIndex);
-   console.log(boardState);
+   //console.log(boardState);
+
+   for (const combo of winCombos) {
+      const arrayOfCombos = Object.values(combo);
+       console.log(arrayOfCombos);
+
+       //const [a, b, c] = arrayOfCombos;
+
+       const matches = arrayOfCombos.filter(value => {
+            return boardState.includes(value);
+       })
+
+       if (matches){
+
+        console.log("player Wins");
+       }
+
+    
+          console.log(boardState);
+    }
    
 }
 
 ticTacToeGrid.forEach(gridcell => {
-    gridcell.addEventListener("click", handleCellClick);
+    gridcell.addEventListener("click", handleCellClick, {once: true});
 })
 
  
