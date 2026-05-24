@@ -1,7 +1,12 @@
-const boardState = ["", "", "", "", "", "", "", "", ""];
+let boardState = ["", "", "", "", "", "", "", "", ""];
 const ticTacToeGrid = [];
 const displayGrid = document.querySelector(".tic-tac-toe-grid");
 console.log(displayGrid);
+const playerOneScoreDisplay = document.getElementById("player-one-score");
+const playerTwoScoreDisplay = document.getElementById("player-two-score");
+const result = document.getElementById("result");
+const restartRoundButton = document.getElementById("restart-round-button");
+const restartGameButton = document.getElementById("restart-game-button");
 
 for (let i = 0; i < 9; i++) { //creates grid squares
 
@@ -11,9 +16,9 @@ for (let i = 0; i < 9; i++) { //creates grid squares
     cell.dataset.id = i;
     ticTacToeGrid.push(cell);
 
+
 }
 
-console.log(ticTacToeGrid);
 
 const [ one, two, three, 
       four, five, six, 
@@ -22,8 +27,8 @@ const [ one, two, three,
 
 const player = {
 
-    wins: 0,
-    losses: 0,
+    wins: 1,
+
 
     choose(character) {
 
@@ -42,10 +47,18 @@ const playerTwo = Object.create(player);
 
 function checkWinner() {
 
-    
+ticTacToeGrid.forEach(gridcell => {
+    gridcell.addEventListener("click", handleCellClick,);
+})
+
+restartRoundButton.addEventListener("click", restartRound);
+
+restartGameButton.addEventListener("click", () => {
+    window.location.reload();
+})
 
 function createWin(a, b, c) {
-    return {a, b, c};
+    return [a.dataset.id, b.dataset.id, c.dataset.id];
 }
 
     const winOne = createWin(one, two, three);
@@ -68,50 +81,26 @@ function createWin(a, b, c) {
         winEight,
     ];
 
-    console.log(winCombos);
-    let roundWon = false;
-
-
-    /*for (const combo of winCombos){
-      const combos = Object.values(combo);
-       console.log(combos);
-
-       const [a, b, c] = combos;
-
-       
-
-
-    }*/
-
-    for (let i = 0; i < winCombos.length; i++){
-
-        //console.log(winCombos[i]);
-       const combos = Object.values(winCombos[i]);
-       console.log(combos);
-
-    } // end of for loop */
-
-
-
     let playerOneTurn = true;
     let playerTwoTurn = false;
+    let X = playerOne.choose("X");
+    let O = playerTwo.choose("O");
 
 function updateBoard(gridCell, index) {
     
-
     if (playerOneTurn) {
-        boardState[index] = String(index);
-        gridCell.textContent = playerOne.choose("X")
+        boardState[index] = X;
+        gridCell.textContent = X;
         playerOneTurn = false;
         playerTwoTurn = true;
         return;
     }    
 
     if (playerTwoTurn){
-        boardState[index] = String(index);
-        gridCell.textContent = playerTwo.choose("O");
+        boardState[index] = O;
+        gridCell.textContent = O;
         playerOneTurn = true;
-        PlayerTwoTurn = false;
+        playerTwoTurn = false;
         return;
     }
     
@@ -122,36 +111,64 @@ function handleCellClick(event) {
 
    let clickedCell = event.target;
    let clickedIndex = event.target.dataset.id;
-   console.log(clickedCell);
-   console.log(clickedIndex);
-
    updateBoard(clickedCell, clickedIndex);
-   //console.log(boardState);
 
-   for (const combo of winCombos) {
-      const arrayOfCombos = Object.values(combo);
-       console.log(arrayOfCombos);
+   let roundWon = false;
+   let gameIsActive = true;
 
-       //const [a, b, c] = arrayOfCombos;
 
-       const matches = arrayOfCombos.filter(value => {
-            return boardState.includes(value);
-       })
+    for (const combo of winCombos) {
+        const [a, b, c] = combo;
 
-       if (matches){
-
-        console.log("player Wins");
-       }
-
-    
-          console.log(boardState);
+        if (boardState[a] && boardState[a] === boardState[b] && boardState[a] === boardState[c]) {
+            roundWon = true;
+            break;
+        }
     }
+
+    if (roundWon) {
+
+
+
+        if(!playerOneTurn){
+            playerOneScoreDisplay.textContent = playerOne.wins++;
+            console.log("Player One Wins");
+            result.textContent = "Player One Wins!";
+            gameIsActive = false;
+            return;
+
+        } else {
+            playerTwoScoreDisplay.textContent = playerTwo.wins++;
+            console.log("Player Two Wins");
+            result.textContent = "Player Two Wins!";
+            gameIsActive = false;
+            return;
+        }
+            console.log("Winner!");
+    }
+
+    if (!boardState.includes("")){
+
+        result.textContent = "It's a Draw!";
+        gameIsActive = false;
+        return;
+    }
+
+
+
    
+} //end of handleCellClick 
+
+function restartRound(){
+
+boardState = ["", "", "", "", "", "", "", "", ""];
+isGameActive = true;
+ticTacToeGrid.forEach(cell => cell.textContent = "");
+result.textContent = "";
+
+debugger;
 }
 
-ticTacToeGrid.forEach(gridcell => {
-    gridcell.addEventListener("click", handleCellClick, {once: true});
-})
 
  
 } // end of Check Winner Function
@@ -160,11 +177,6 @@ ticTacToeGrid.forEach(gridcell => {
 
 
 checkWinner();
-
-
-
-
-
 
 
 
