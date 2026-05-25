@@ -34,7 +34,7 @@
 .cell {
     background-color: blue;
     color: white;
-    font-size: 2em;
+    font-size: 5em;
     font-weight: bold;
     display: flex;
     justify-content: center;
