@@ -14,34 +14,25 @@ for (let i = 0; i < 9; i++) { //creates grid squares
     displayGrid.appendChild(cell);
     cell.dataset.id = i;
     ticTacToeGrid.push(cell);
-
-
 }
-
 
 const [ one, two, three, 
       four, five, six, 
-      seven, eight, nine ] = ticTacToeGrid; //destructs the grid squares 
-
+      seven, eight, nine ] = ticTacToeGrid; 
 
 const player = {
 
     wins: 1,
 
-
     choose(character) {
 
-    let input = character;
-    return input;
-    
+        let input = character;
+        return input;
     }
 };
 
-
-
 const playerOne = Object.create(player);
 const playerTwo = Object.create(player);
-
 
 
 (function IIFE() {
@@ -104,22 +95,16 @@ function updateBoard(gridCell, index) {
         playerTwoTurn = false;
         return;
     }
-    
-
 }
 
 function handleCellClick(event) {
 
-   let clickedCell = event.target;
-   let clickedIndex = event.target.dataset.id;
-   updateBoard(clickedCell, clickedIndex);
+    let clickedCell = event.target;
+    let clickedIndex = event.target.dataset.id;
+    updateBoard(clickedCell, clickedIndex);
 
-   let roundWon = false;
-   let gameIsActive = true; 
-
-
-   //if (boardState[clickedIndex] !== "" || !gameIsActive) return;
-
+    let roundWon = false;
+    let gameIsActive = true; 
 
     for (const combo of winCombos) {
         const [a, b, c] = combo;
@@ -138,7 +123,7 @@ function handleCellClick(event) {
             result.textContent = "Player One Wins!";
             gameIsActive = false;
             stopGame();
-            return;
+        
 
         } else {
             playerTwoScoreDisplay.textContent = playerTwo.wins++;
@@ -146,11 +131,9 @@ function handleCellClick(event) {
             result.textContent = "Player Two Wins!";
             gameIsActive = false;
             stopGame();
-            return;
-            
             
         }
-
+        return;
     }
 
     if (!boardState.includes("")){
@@ -159,9 +142,6 @@ function handleCellClick(event) {
         gameIsActive = false;
         return;
     }
-
-
-
 } //end of handleCellClick 
 
 function stopGame(){
@@ -176,24 +156,18 @@ function removeCellClickEvent(gridDisplayCell){
 
 function restartRound(){
 
-boardState = ["", "", "", "", "", "", "", "", ""];
-isGameActive = true;
-ticTacToeGrid.forEach(cell => cell.textContent = "");
-result.textContent = "";
-ticTacToeGrid.forEach(gridcell => {
-    gridcell.addEventListener("click", handleCellClick,);
-})
+    boardState = ["", "", "", "", "", "", "", "", ""];
+    isGameActive = true;
+    ticTacToeGrid.forEach(cell => cell.textContent = "");
+    result.textContent = "";
+    ticTacToeGrid.forEach(gridcell => {
+        gridcell.addEventListener("click", handleCellClick,);
+    })
 
 }
+})() // end of IIFE
 
 
- 
-})() // end of Check Winner Function
-
-
-
-
-//checkWinner();
 
 
 

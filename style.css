@@ -8,6 +8,15 @@
     display: flex;
     justify-content: center;
     margin-top: 5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.scores {
+    display: flex;
+    margin-bottom: 2em;
+    gap: 3em;
 }
 
 .tic-tac-toe-grid {
@@ -30,4 +39,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.restart {
+    display: flex;
+    margin-top: 3em;
+    gap: 5em;
 }
