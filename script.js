@@ -7,7 +7,7 @@ const result = document.getElementById("result");
 const restartRoundButton = document.getElementById("restart-round-button");
 const restartGameButton = document.getElementById("restart-game-button");
 
-for (let i = 0; i < 9; i++) { //creates grid squares
+for (let i = 0; i < 9; i++) { 
 
     let cell = document.createElement("div");
     cell.classList.add("cell");
@@ -39,13 +39,13 @@ const playerTwo = Object.create(player);
 
 ticTacToeGrid.forEach(gridcell => {
     gridcell.addEventListener("click", handleCellClick,);
-})
+});
 
 restartRoundButton.addEventListener("click", restartRound);
 
 restartGameButton.addEventListener("click", () => {
     window.location.reload();
-})
+});
 
 function createWin(a, b, c) {
     return [a.dataset.id, b.dataset.id, c.dataset.id];
@@ -142,7 +142,7 @@ function handleCellClick(event) {
         gameIsActive = false;
         return;
     }
-} //end of handleCellClick 
+} 
 
 function stopGame(){
     ticTacToeGrid.forEach(gridcell => {
@@ -165,7 +165,8 @@ function restartRound(){
     })
 
 }
-})() // end of IIFE
+
+})();
 
 
 
